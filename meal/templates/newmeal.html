@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    
+    <title>User </title>
+</head>
+
+<body>
+  <div class="container">
+    <nav class="navbar navbar-dark bg-dark">
+      <a href="/meals/newmeal" class="navbar-item btn btn-primary">Offer New Meal</a>
+      <a href="/meals" class="navbar-item btn  btn-primary" >All Meals</a>
+      <a href="/meals/mylist" class="navbar-item btn btn-primary">My list</a>
+      <a href="/logout" class='navbar-item  btn btn-warning'>Log me out </a>
+    </nav>
+    <div class="text-center jumbotron-fluid" id="top_bar">
+      <h1>Welcome to Meal Share</h1>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4">
+        <h3>Register new meal</h3>
+        <form action="/meals/mealregister" method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="meal_name">Meal Name</label>
+            <input type="text" name='meal_name' class="form-control">
+            <label for="meal_note">Meal Notes</label>
+            <input type="textarea" name='meal_note' class="form-control">
+            <label for="offered_portion">Meal Portions available</label>
+            <input type="text" name='offered_portion' class="form-control">
+            
+
+            <label for="mealtype">Meal Type</label>
+            <select name="mealtype" id="mealtype" class="form-control">
+              
+              {% for mealtype in mealtype %}
+              <option value={{mealtype.catagory}}>{{mealtype.catagory}}</option>
+              {% endfor %}
+            </select>
+
+
+            <label for="date">Date</label>
+            <input type="date" name='date' class="form-control">
+
+            <br>
+            <br>
+                <button class="btn btn-primary">Register Meal</button>
+
+          </div>
+          
+          
+
+        </form>
+      
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li style="font-size:.8rem; color:red;background-color: aliceblue;">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+      </div>
+      <div class="col-sm-8">
+        <h4></h4>
+        <br>
+        <table class='table table-dark table-striped'>
+          <thead>
+
+            <tr>
+              <th>your meals</th>
+              <th>Notes</th>
+              <th>Date </th>
+              <th>asked for my </th>
+            </tr>
+          </thead>
+  
+          <tbody>
+  
+            {% for meal in usermeals %}
+              <tr>
+                <td>{{meal.meal_name}} </td>
+                <td>{{meal.meal_note}} </td>
+                <td>{{meal.date}}  </td>
+                <td>
+                  {% for orderedby in meal.ordered_by.all %}
+                  <li>{{orderedby.first_name}}</li>
+
+                  {% endfor %}
+                </td>
+  
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

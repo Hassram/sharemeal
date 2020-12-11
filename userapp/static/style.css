@@ -1,0 +1,20 @@
+body {
+    background-color:lightcyan;
+    margin: 40px;
+    background: url('/static/pics/backgr.jpg')
+}
+
+#top_bar{
+    background-color: #c8bbab
+}
+
+table{
+    opacity: 0.8;
+}
+
+h3 {
+    background: inherit;
+    color: transparent;
+    filter: invert(1);
+ 
+  }

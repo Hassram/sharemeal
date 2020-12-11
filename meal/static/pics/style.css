@@ -1,0 +1,15 @@
+body {
+    margin: 40px;
+    background: url('{{static_URL}} meal/pics/backgr.jpg')
+}
+
+h3 {
+    background: inherit;
+    color: transparent;
+    filter: invert(1);
+    /* color: red; */
+  }
+
+  /* .margin-left{
+    margin-left: 80px !important;
+} */
